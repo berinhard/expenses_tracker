@@ -35,6 +35,7 @@ INSTALLED_APPS = (
     'src.expenses',
     'debug_toolbar',
     'django_extensions',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
