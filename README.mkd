@@ -61,3 +61,13 @@ Json as:
     'description': 'expense description',
 }
 ```
+
+### Remove Expense
+```
+DELETE /api/expenses/<id>/
+
+Json as:
+{}
+```
+
+
