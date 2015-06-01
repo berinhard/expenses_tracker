@@ -1,5 +1,6 @@
 # coding:utf-8
 import json
+from datetime import date
 from model_mommy import mommy
 
 from django.core.urlresolvers import reverse
@@ -84,7 +85,7 @@ class TestExpensesListApiMethod(ApiTestCase):
 class TestExpenseResourceApiMethods(ApiTestCase):
 
     def setUp(self):
-        mommy.make(Expense, id=42)
+        self.expense = mommy.make(Expense, id=42)
         self.url = reverse('expenses:expense_detail', args=[42])
 
     def test_return_correct_object(self):
@@ -116,3 +117,17 @@ class TestExpenseResourceApiMethods(ApiTestCase):
 
         self.assertEqual(204, response.status_code)
         self.assertFalse(Expense.objects.filter(id=42).exists())
+
+    def test_updates_expense(self):
+        data = {
+            'value': '10.92',
+            'category': Expense.CATEGORIES[0][0],
+            'description': 'foo',
+            'date': '1988-9-22',
+        }
+
+        response = self.client.put(self.url, data=data)
+
+        self.assertEqual(200, response.status_code)
+        expense = Expense.objects.get(id=self.expense.id)
+        self.assertEqual(date(1988, 9, 22), expense.date)
