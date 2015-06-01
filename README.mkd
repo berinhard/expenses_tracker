@@ -38,8 +38,10 @@ Json as:
         'id': 3,
         'detail_link': 'url', #url to see details for the expense
         'price', '10.0' # Decimal,
-        'category', 'XPTO' # String,
+        'category', 'X' # String,
+        'category_display', 'XPTO' # String,
         'date': '22/09/1988', # date on %d/%m/%Y format
+        'description': 'expense description',
     }
 ]
 ```
@@ -53,7 +55,9 @@ Json as:
     'id': 3,
     'price', '10.0' # Decimal,
     'category', 'XPTO' # String,
+    'detail_link': 'url', #url to see details for the expense
     'date': '22/09/1988', # date on %d/%m/%Y format
+    'category_display', 'XPTO' # String,
     'description': 'expense description',
 }
 ```
