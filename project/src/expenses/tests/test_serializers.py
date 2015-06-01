@@ -1,4 +1,5 @@
 # coding:utf-8
+from decimal import Decimal
 from datetime import date
 
 from django.test import TestCase
@@ -25,5 +26,23 @@ class TestExpenseSerializer(TestCase):
         self.assertEqual(u'10.00', serializer.data['value'])
         self.assertEqual(category[0], serializer.data['category'])
         self.assertEqual(category[1], serializer.data['category_display'])
-        self.assertEqual('01/01/2015', serializer.data['date'])
+        self.assertEqual('2015-01-01', serializer.data['date'])
         self.assertEqual('foo', serializer.data['description'])
+
+    def test_creates_expense(self):
+        data = {
+            'value': '10.92',
+            'category': Expense.CATEGORIES[0][0],
+            'description': 'foo',
+            'date': '2015-12-31',
+        }
+
+        serializer = ExpenseSerializer(data=data)
+        self.assertTrue(serializer.is_valid())
+        expense = serializer.save()
+
+        self.assertTrue(expense.id)
+        self.assertEqual(Decimal('10.92'), expense.value)
+        self.assertEqual(Expense.CATEGORIES[0][0], expense.category)
+        self.assertEqual('foo', expense.description)
+        self.assertEqual(date(2015, 12, 31), expense.date)
