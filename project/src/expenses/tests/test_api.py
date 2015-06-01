@@ -3,12 +3,39 @@ import json
 from model_mommy import mommy
 
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.test import TestCase, Client
 
 from src.expenses.models import Expense
 from src.expenses.serializers import ExpenseSerializer
 
-class TestExpensesListApiMethod(TestCase):
+
+class JsonRequestClient(Client):
+
+    def post(self, path, data={}, **kwargs):
+        kwargs['content_type'] = 'application/json'
+        data = json.dumps(data)
+        return super(JsonRequestClient, self).post(path, data, **kwargs)
+
+    def get(self, path, data={}, **kwargs):
+        kwargs['content_type'] = 'application/json'
+        return super(JsonRequestClient, self).get(path, data, **kwargs)
+
+    def put(self, path, data={}, **kwargs):
+        kwargs['content_type'] = 'application/json'
+        data = json.dumps(data)
+        return super(JsonRequestClient, self).put(path, data, **kwargs)
+
+    def delete(self, path, **kwargs):
+        kwargs['content_type'] = 'application/json'
+        return super(JsonRequestClient, self).delete(path, **kwargs)
+
+
+class ApiTestCase(TestCase):
+
+    client_class = JsonRequestClient
+
+
+class TestExpensesListApiMethod(ApiTestCase):
 
     def setUp(self):
         self.url = reverse('expenses:list_expenses')
@@ -54,7 +81,7 @@ class TestExpensesListApiMethod(TestCase):
         self.assertEqual(ExpenseSerializer, ListExpensesAPI.serializer_class)
 
 
-class TestExpenseResourceApiMethods(TestCase):
+class TestExpenseResourceApiMethods(ApiTestCase):
 
     def setUp(self):
         mommy.make(Expense, id=42)
