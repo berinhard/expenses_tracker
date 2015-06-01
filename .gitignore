@@ -1,0 +1,11 @@
+*.pyc
+*.sql
+.env
+bin/
+/lib/
+man/
+media/
+include/
+local/
+build/
+.Python
