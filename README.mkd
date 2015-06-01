@@ -1,0 +1,59 @@
+# Berin's Expenses Tracker
+
+Project to keep track on my expenses.
+
+## Development Steps
+
+ - Clone the project
+ - pip install -r dev_requirements
+ - python projet/manage.py test
+ - python projet/manage.py syncdb
+ - python projet/manage.py migrate
+ - python projet/manage.py runserver
+
+## API Definition
+
+All the API is based, for now, on the `Expense` resource. The operations provided by this first version are:
+
+### Create Expense
+```
+POST /api/expenses/
+
+Json as:
+{
+    'price', '10.0' # Decimal,
+    'category', 'XPTO' # String,
+    'date': '22/09/1988', # date on %d/%m/%Y format
+    'description': '', # opitional string
+}
+```
+
+### List Expenses
+```
+GET /api/expenses/
+
+Json as:
+[
+    {
+        'id': 3,
+        'detail_link': 'url', #url to see details for the expense
+        'price', '10.0' # Decimal,
+        'category', 'XPTO' # String,
+        'date': '22/09/1988', # date on %d/%m/%Y format
+    }
+]
+```
+
+### Detail Expense
+```
+GET /api/expenses/<id>/
+
+Json as:
+{
+    'id': 3,
+    'price', '10.0' # Decimal,
+    'category', 'XPTO' # String,
+    'date': '22/09/1988', # date on %d/%m/%Y format
+    'description': 'expense description',
+}
+```
