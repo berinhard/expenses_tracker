@@ -11,10 +11,13 @@ class ListExpensesAPI(ListAPIView):
     queryset = Expense.objects.all()
 
 
-class ExpenseResourceAPI(mixins.RetrieveModelMixin, GenericAPIView):
+class ExpenseResourceAPI(mixins.RetrieveModelMixin, mixins.DestroyModelMixin, GenericAPIView):
     serializer_class = ExpenseSerializer
     lookup_url_kwarg = 'expense_id'
     queryset = Expense.objects.all()
 
     def get(self, *args, **kwargs):
         return self.retrieve(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        return self.destroy(*args, **kwargs)

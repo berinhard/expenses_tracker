@@ -62,3 +62,11 @@ class TestExpenseResourceApiMethods(TestCase):
         self.assertEqual(list(qs), list(ExpenseResourceAPI.queryset))
         self.assertEqual(ExpenseSerializer, ExpenseResourceAPI.serializer_class)
         self.assertEqual('expense_id', ExpenseResourceAPI.lookup_url_kwarg)
+
+    def test_deletes_expense(self):
+        self.assertTrue(Expense.objects.filter(id=42).exists())
+
+        response = self.client.delete(self.url)
+
+        self.assertEqual(204, response.status_code)
+        self.assertFalse(Expense.objects.filter(id=42).exists())
