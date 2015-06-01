@@ -13,7 +13,7 @@ class TestExpensesListApiMethod(TestCase):
     def setUp(self):
         self.url = reverse('expenses:list_expenses')
 
-    def test_returns_expected_json(self):
+    def test_returns_expected_json_on_get(self):
         mommy.make(Expense)
 
         response = self.client.get(self.url)
@@ -24,6 +24,25 @@ class TestExpensesListApiMethod(TestCase):
         expected_keys = ['id', 'value', 'category', 'category_display', 'date', 'description']
         for key in expected_keys:
             self.assertIn(key, content[0])
+
+    def test_creates_entry_on_post_with_valid_data(self):
+        self.assertFalse(Expense.objects.exists())
+        data = {
+            'value': '10.92',
+            'category': Expense.CATEGORIES[0][0],
+            'description': 'foo',
+            'date': '2015-12-31',
+        }
+
+        response = self.client.post(self.url, data)
+        content = json.loads(response.content)
+
+        self.assertEqual(201, response.status_code)
+        expected_keys = ['id', 'value', 'category', 'category_display', 'date', 'description']
+        for key in expected_keys:
+            self.assertIn(key, content)
+        self.assertTrue(Expense.objects.get())
+
 
     def test_ensure_generic_view_configuration(self):
         from src.expenses.api import ListExpensesAPI
