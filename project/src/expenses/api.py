@@ -1,12 +1,12 @@
 # coding:utf-8
-from rest_framework.generics import ListAPIView, GenericAPIView
+from rest_framework.generics import ListCreateAPIView, GenericAPIView
 from rest_framework import mixins
 
 from src.expenses.serializers import ExpenseSerializer
 from src.expenses.models import Expense
 
 
-class ListExpensesAPI(ListAPIView):
+class ListExpensesAPI(ListCreateAPIView):
     serializer_class = ExpenseSerializer
     queryset = Expense.objects.all()
 
