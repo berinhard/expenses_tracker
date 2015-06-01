@@ -19,20 +19,33 @@ All the API is based, for now, on the `Expense` resource. The operations provide
 ```
 POST /api/expenses/
 
-Json as:
+Json Request as:
 {
     'price', '10.0' # Decimal,
-    'category', 'XPTO' # String,
+    'category', 'X' # String,
     'date': '1988-09-22', # date on %Y-%m-%d format
     'description': '', # opitional string
 }
+
+RESPONSE [201] - Json as:
+{
+    'id': 3,
+    'detail_link': 'url', #url to see details for the expense
+    'price', '10.0' # Decimal,
+    'category', 'X' # String,
+    'category_display', 'XPTO' # String,
+    'date': '1988-09-22', # date on %Y-%m-%d format
+    'description': '', # opitional string
+}
+
+RESPONSE [400] - Json with errors;
 ```
 
 ### List Expenses
 ```
 GET /api/expenses/
 
-Json as:
+RESPONSE[200] - Json as:
 [
     {
         'id': 3,
@@ -50,7 +63,7 @@ Json as:
 ```
 GET /api/expenses/<id>/
 
-Json as:
+RESPONSE [200] - Json as:
 {
     'id': 3,
     'price', '10.0' # Decimal,
@@ -60,14 +73,17 @@ Json as:
     'category_display', 'XPTO' # String,
     'description': 'expense description',
 }
+
+RESPONSE [404] - object not found
 ```
 
 ### Remove Expense
 ```
 DELETE /api/expenses/<id>/
 
-Json as:
-{}
+RESPONSE [204] on success without content;
+
+RESPONSE [404] - object not found
 ```
 
 
