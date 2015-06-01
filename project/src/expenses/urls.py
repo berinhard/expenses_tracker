@@ -1,8 +1,8 @@
 from django.conf.urls import patterns, url
 
-def foo(request):
-    pass
+from src.expenses.api import *
+
 
 urlpatterns = patterns('',
-    url(r'^list-expenses/$', foo, name="list_expenses")
+    url(r'^list-expenses/$', ListExpensesAPI.as_view(), name="list_expenses")
 )
