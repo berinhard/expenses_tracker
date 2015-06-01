@@ -77,6 +77,32 @@ RESPONSE [200] - Json as:
 RESPONSE [404] - object not found
 ```
 
+### Edit Expense
+```
+PUT /api/expenses/<id>/
+
+Json Request as:
+{
+    'price', '10.0' # Decimal,
+    'category', 'X' # String,
+    'date': '1988-09-22', # date on %Y-%m-%d format
+    'description': '', # opitional string
+}
+
+RESPONSE [200] - Json as:
+{
+    'id': 3,
+    'resource_url': 'url', #url to see details for the expense
+    'price', '10.0' # Decimal,
+    'category', 'X' # String,
+    'category_display', 'XPTO' # String,
+    'date': '1988-09-22', # date on %Y-%m-%d format
+    'description': '', # opitional string
+}
+
+RESPONSE [400] - Json with errors;
+```
+
 ### Remove Expense
 ```
 DELETE /api/expenses/<id>/
