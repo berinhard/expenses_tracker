@@ -35,7 +35,7 @@ class TestExpensesListApiMethod(TestCase):
         self.assertEqual(ExpenseSerializer, ListExpensesAPI.serializer_class)
 
 
-class TestExpenseDetailApiMethod(TestCase):
+class TestExpenseResourceApiMethods(TestCase):
 
     def setUp(self):
         mommy.make(Expense, id=42)
@@ -54,11 +54,11 @@ class TestExpenseDetailApiMethod(TestCase):
         self.assertEqual(404, response.status_code)
 
     def test_ensure_generic_view_configuration(self):
-        from src.expenses.api import ExpenseDetailAPI
+        from src.expenses.api import ExpenseResourceAPI
         mommy.make(Expense)
 
         qs = Expense.objects.all()
 
-        self.assertEqual(list(qs), list(ExpenseDetailAPI.queryset))
-        self.assertEqual(ExpenseSerializer, ExpenseDetailAPI.serializer_class)
-        self.assertEqual('expense_id', ExpenseDetailAPI.lookup_url_kwarg)
+        self.assertEqual(list(qs), list(ExpenseResourceAPI.queryset))
+        self.assertEqual(ExpenseSerializer, ExpenseResourceAPI.serializer_class)
+        self.assertEqual('expense_id', ExpenseResourceAPI.lookup_url_kwarg)
