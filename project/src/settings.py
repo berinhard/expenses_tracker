@@ -2,7 +2,6 @@ from unipath import Path
 
 BASE_DIR = Path(__file__).parent.parent
 
-
 SECRET_KEY = '08dz1r-nunxfm9apy!leemuq3pyol_7d21j@2$9indzt1jh3k8'
 
 DEBUG = True
@@ -64,3 +63,7 @@ TEMPLATES = [
         },
     },
 ]
+
+STATICFILES_DIRS = (
+    BASE_DIR.child("static"),
+)
