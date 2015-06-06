@@ -1,11 +1,22 @@
+# coding: utf-8
+
+import os
+
+import dj_database_url
+
 from unipath import Path
 
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+ALLOWED_HOSTS = ['*']
+
 BASE_DIR = Path(__file__).parent.parent
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-SECRET_KEY = '08dz1r-nunxfm9apy!leemuq3pyol_7d21j@2$9indzt1jh3k8'
+SECRET_KEY = '63d67097f7114471b2345d4ec9d55158'
 
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = False
 
 LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Sao_Paulo'
@@ -17,12 +28,7 @@ ROOT_URLCONF = 'src.urls'
 
 STATIC_URL = '/static/'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR.child('.sqlite3.db'),
-    }
-}
+DATABASES = {'default': dj_database_url.config(),}
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -32,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'src.expenses',
-    'debug_toolbar',
+    #'debug_toolbar',
     'django_extensions',
     'rest_framework',
 )
@@ -65,5 +71,5 @@ TEMPLATES = [
 ]
 
 STATICFILES_DIRS = (
-    BASE_DIR.child("static"),
+    BASE_DIR.child('static'),
 )

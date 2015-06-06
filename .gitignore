@@ -10,3 +10,5 @@ local/
 build/
 .Python
 *.db
+venv
+project/staticfiles
