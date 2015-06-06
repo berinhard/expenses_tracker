@@ -28,7 +28,7 @@ ROOT_URLCONF = 'src.urls'
 
 STATIC_URL = '/static/'
 
-DATABASES['default'] =  dj_database_url.config()
+DATABASES = {'default': dj_database_url.config(),}
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'src.expenses',
-    'debug_toolbar',
+    #'debug_toolbar',
     'django_extensions',
     'rest_framework',
 )
